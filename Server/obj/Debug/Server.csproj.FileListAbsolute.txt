@@ -12,3 +12,10 @@ D:\Learning\Visual Studio\TextChat\Server\Server\obj\Debug\Server.csprojAssembly
 D:\Learning\Visual Studio\TextChat\Server\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
 D:\Learning\Visual Studio\TextChat\Server\Server\obj\Debug\Server.exe
 D:\Learning\Visual Studio\TextChat\Server\Server\obj\Debug\Server.pdb
+D:\Learning\Git\Chat\Server\bin\Debug\Server.exe.config
+D:\Learning\Git\Chat\Server\bin\Debug\Server.exe
+D:\Learning\Git\Chat\Server\bin\Debug\Server.pdb
+D:\Learning\Git\Chat\Server\obj\Debug\Server.csprojAssemblyReference.cache
+D:\Learning\Git\Chat\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+D:\Learning\Git\Chat\Server\obj\Debug\Server.exe
+D:\Learning\Git\Chat\Server\obj\Debug\Server.pdb
