@@ -80,9 +80,9 @@ namespace Client
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
-            System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
-            System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
+           //System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
+           // System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
+           // System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
             return;
             if (clientSocket.IsBound == true)
             {
@@ -99,9 +99,9 @@ namespace Client
 
             else
             {
-                System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
-                System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
-                System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
+              //  System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
+             //  System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
+              //  System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
                 return;
                 Application.Exit();
             }
@@ -180,7 +180,7 @@ namespace Client
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("http://pornosveta.com/categories/");           
+           // System.Diagnostics.Process.Start("http://pornosveta.com/categories/");           
         }
 
 
