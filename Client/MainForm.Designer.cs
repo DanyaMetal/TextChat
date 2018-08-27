@@ -30,6 +30,7 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.подключитьсяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сервер1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
@@ -51,10 +52,19 @@
             // 
             // подключитьсяToolStripMenuItem
             // 
+            this.подключитьсяToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.сервер1ToolStripMenuItem});
             this.подключитьсяToolStripMenuItem.Name = "подключитьсяToolStripMenuItem";
             this.подключитьсяToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
             this.подключитьсяToolStripMenuItem.Text = "Подключиться";
             this.подключитьсяToolStripMenuItem.Click += new System.EventHandler(this.подключитьсяToolStripMenuItem_Click);
+            // 
+            // сервер1ToolStripMenuItem
+            // 
+            this.сервер1ToolStripMenuItem.Name = "сервер1ToolStripMenuItem";
+            this.сервер1ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.сервер1ToolStripMenuItem.Text = "Сервер №1";
+            this.сервер1ToolStripMenuItem.Click += new System.EventHandler(this.сервер1ToolStripMenuItem_Click);
             // 
             // button1
             // 
@@ -84,6 +94,7 @@
             // 
             // textBox1
             // 
+            this.textBox1.Enabled = false;
             this.textBox1.Location = new System.Drawing.Point(31, 92);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
@@ -92,13 +103,13 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(40, 324);
+            this.button2.Location = new System.Drawing.Point(35, 314);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(129, 50);
+            this.button2.Size = new System.Drawing.Size(134, 46);
             this.button2.TabIndex = 6;
-            this.button2.Text = "button2";
+            this.button2.Text = "Админ";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // MainForm
             // 
@@ -130,6 +141,7 @@
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ToolStripMenuItem сервер1ToolStripMenuItem;
         private System.Windows.Forms.Button button2;
     }
 }

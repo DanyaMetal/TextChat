@@ -12,14 +12,28 @@ namespace Client
 {
     public partial class NewUser : Form
     {
-        public NewUser()
+
+        public MainForm form; 
+
+        public NewUser(MainForm mainForm)
         {
             InitializeComponent();
+
+            form = mainForm;
+            
+           
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            form.nameClient = nameTextBox1.Text;
+           // form.i = 2;
+            this.Close();
         }
     }
 }
