@@ -20,6 +20,8 @@ namespace Client
         public MainForm()
         {
             InitializeComponent();
+            //В случае любого закрытия приложения осуществляется его правильное закрытие через функцию closeApplication
+            Application.ApplicationExit += new EventHandler(this.closeApplication);
         }
         //Создаём сокет для клиента        
         static Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -28,22 +30,13 @@ namespace Client
         Thread clientTH;
 
         //Имя пользователя
-        public string nameClient;
-
-        //public int i = 1;
+        public string nameClient;        
 
         private void button1_Click(object sender, EventArgs e)
         {                               
             sendMsg(nameClient + ": " + richTextBox2.Text);
         }
-
-        private void подключитьсяToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-           
-
-            
-            
-        }
+      
         
         //Осуществляет постоянную прослушка на принятие сообщений от сервера
         private void doChat()
@@ -86,34 +79,8 @@ namespace Client
           
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-           //System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
-           // System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
-           // System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
-           // return;
-            if (clientSocket.IsBound == true)
-            {
-                //Сообщаем серверу об отключении клиента
-                sendMsg(nameClient);
-                byte[] aanswerServer = new byte[1024];
-
-                //Завершаем поток, освобождаем ресурсы, закрываем сокет подключение и выходим из приложения            
-                //clientSocket.Shutdown(SocketShutdown.Both);
-                clientTH.Abort();
-                clientSocket.Close();
-                Application.Exit();
-            }
-
-            else
-            {
-              //  System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
-             //  System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
-              //  System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
-              //  return;
-                Application.Exit();
-            }
-            
-
+        {          
+            closeApplication( sender, e);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -131,14 +98,13 @@ namespace Client
 
         private void сервер1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            //создаём форму создания имени клиента
+            //в качаестве параметра передаём главную форму, чтобы получить доступ к её элементам
             NewUser nameForm = new NewUser(this);
             nameForm.ShowDialog();
 
 
-           // while (i == 1)
-            //{
-           // }
+           
 
 
 
@@ -206,6 +172,35 @@ namespace Client
             //При добавлении текста прокручивает чат вниз
             richTextBox1.SelectionStart = richTextBox1.Text.Length;
             richTextBox1.ScrollToCaret();
+        }
+
+        //реазилует правильное завершение работы клиента и выход из него
+        private void closeApplication(object sender, EventArgs e)
+        { //System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
+          // System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
+          // System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
+          // return;
+            if (clientSocket.IsBound == true)
+            {
+                //Сообщаем серверу об отключении клиента
+                sendMsg(nameClient);
+                byte[] aanswerServer = new byte[1024];
+
+                //Завершаем поток, освобождаем ресурсы, закрываем сокет подключение и выходим из приложения            
+                //clientSocket.Shutdown(SocketShutdown.Both);
+                clientTH.Abort();
+                clientSocket.Close();
+                Application.Exit();
+            }
+
+            else
+            {
+                //  System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
+                //  System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
+                //  System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
+                //  return;
+                Application.Exit();
+            }
         }
     }
 }

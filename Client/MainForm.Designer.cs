@@ -56,7 +56,7 @@
             this.подключитьсяToolStripMenuItem.Name = "подключитьсяToolStripMenuItem";
             this.подключитьсяToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
             this.подключитьсяToolStripMenuItem.Text = "Подключиться";
-            this.подключитьсяToolStripMenuItem.Click += new System.EventHandler(this.подключитьсяToolStripMenuItem_Click);
+           
             // 
             // сервер1ToolStripMenuItem
             // 
