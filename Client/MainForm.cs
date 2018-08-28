@@ -32,10 +32,7 @@ namespace Client
         //Имя пользователя
         public string nameClient;        
 
-        private void button1_Click(object sender, EventArgs e)
-        {                               
-            sendMsg(nameClient + ": " + richTextBox2.Text);
-        }
+        
       
         
         //Осуществляет постоянную прослушка на принятие сообщений от сервера
@@ -49,8 +46,8 @@ namespace Client
                     string listenMsg =  Encoding.Unicode.GetString(buffer);
 
                 //Осуществляем доступ к элементу управления, который был создан в другом потоке
-                richTextBox1.Invoke((Action)delegate { richTextBox1.Text += listenMsg; });
-                richTextBox2.Invoke((Action)delegate { richTextBox2.SelectionStart = 0; });
+                cahtRichTextBox.Invoke((Action)delegate { cahtRichTextBox.Text += listenMsg; });
+                msgRichTextBox2.Invoke((Action)delegate { msgRichTextBox2.SelectionStart = 0; });
                 
             }
         }
@@ -96,84 +93,31 @@ namespace Client
             Application.Exit();
         }
 
-        private void сервер1ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //создаём форму создания имени клиента
-            //в качаестве параметра передаём главную форму, чтобы получить доступ к её элементам
-            NewUser nameForm = new NewUser(this);
-            nameForm.ShowDialog();
-
-
-           
-
-
-
-
-            //Подключаемся к серверу...
-            clientSocket.Connect("127.0.0.1", 904);
-
-
-            //Посылаем на сервер имя подключающегося клиента
-            byte[] nameBufer = new byte[1024];
-            nameBufer = Encoding.Unicode.GetBytes(nameClient);
-            clientSocket.Send(nameBufer);
-
-            while (1 == 1)
-            {
-                //принимаем историю со стороны сервера
-                byte[] historyBuffer = new byte[1024];
-                clientSocket.Receive(historyBuffer);
-                string historyMsg = Encoding.Unicode.GetString(historyBuffer);
-                historyMsg = historyMsg.Trim('\0');
-
-                //При получении завершающего слова Last приём истоии завершается
-                if (historyMsg == "Last")
-                {
-                    //подтверждение об успешности принятия строчки истории 
-                    sendMsg("OK");
-                    break;
-                }
-
-                else
-                {
-                    richTextBox1.Text += historyMsg;
-                    sendMsg("OK");
-                }
-            }
-
-            //Принимаем ответ от сервера об успешном подключении к серверу
-            byte[] answerServer = new byte[1024];
-            clientSocket.Receive(answerServer);
-            richTextBox1.Text += Encoding.Unicode.GetString(answerServer);
-
-            //Создаем отдельный поток для постоянной прослушки сервера на принятие сообщений от него
-            clientTH = new Thread(new ThreadStart(doChat));
-            clientTH.Start();
-        }
+        
 
         private void button2_Click_1(object sender, EventArgs e)
         {
            // System.Diagnostics.Process.Start("http://pornosveta.com/categories/");           
         }        
         
-        private void richTextBox2_KeyDown(object sender, KeyEventArgs e)
+        private void msgRichTextBox2_KeyDown(object sender, KeyEventArgs e)
         {
             //При нажатии на Enter посылается набранное сообщение
             if ( e.KeyData == Keys.Enter)
             {
-                sendMsg(nameClient + ": " + richTextBox2.Text);
-                richTextBox2.Text = string.Empty;
+                sendMsg(nameClient + ": " + msgRichTextBox2.Text);
+                msgRichTextBox2.Text = string.Empty;
             }
 
         }
 
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        private void chatRichTextBox1_TextChanged(object sender, EventArgs e)
         {
             //При добавлении текста прокручивает чат вниз
-            richTextBox1.SelectionStart = richTextBox1.Text.Length;
-            richTextBox1.ScrollToCaret();
+            cahtRichTextBox.SelectionStart = cahtRichTextBox.Text.Length;
+            cahtRichTextBox.ScrollToCaret();
         }
-
+        
         //реазилует правильное завершение работы клиента и выход из него
         private void closeApplication(object sender, EventArgs e)
         { //System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
@@ -201,6 +145,83 @@ namespace Client
                 //  return;
                 Application.Exit();
             }
+        }
+
+        private void подключитьсяToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Подключаемся к серверу...
+            clientSocket.Connect("127.0.0.1", 904);
+
+
+            //Посылаем на сервер имя подключающегося клиента
+            byte[] nameBufer = new byte[1024];
+            nameBufer = Encoding.Unicode.GetBytes(nameClient);
+            clientSocket.Send(nameBufer);
+
+            while (1 == 1)
+            {
+                //принимаем историю со стороны сервера
+                byte[] historyBuffer = new byte[1024];
+                clientSocket.Receive(historyBuffer);
+                string historyMsg = Encoding.Unicode.GetString(historyBuffer);
+                historyMsg = historyMsg.Trim('\0');
+
+                //При получении завершающего слова Last приём истоии завершается
+                if (historyMsg == "Last")
+                {
+                    //подтверждение об успешности принятия строчки истории 
+                    sendMsg("OK");
+                    break;
+                }
+
+                else
+                {
+                    cahtRichTextBox.Text += historyMsg;
+                    sendMsg("OK");
+                }
+            }
+
+
+            while(1==1)
+            {
+                //Принимаем с сервера список подключённых к чату
+                byte[] userMsg = new byte[1024];
+                clientSocket.Receive(userMsg);
+                string user = Encoding.Unicode.GetString(userMsg);
+                user = user.Trim('\0');
+
+                //При получении завершающего слова Last приём данныхзавершается
+                if (user == "Last\n")
+                {
+                    //подтверждение об успешности принятия данных
+                    sendMsg("OK");
+                    break;
+                }
+
+                else
+                {
+                    userList.Items.Add(user);
+                    sendMsg("OK");
+                }
+            }
+            
+
+            //Принимаем ответ от сервера об успешном подключении к серверу
+            byte[] answerServer = new byte[1024];
+            clientSocket.Receive(answerServer);
+            cahtRichTextBox.Text += Encoding.Unicode.GetString(answerServer);
+
+            //Создаем отдельный поток для постоянной прослушки сервера на принятие сообщений от него
+            clientTH = new Thread(new ThreadStart(doChat));
+            clientTH.Start();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            //создаём форму создания имени клиента
+            //в качаестве параметра передаём главную форму, чтобы получить доступ к её элементам
+            NewUser nameForm = new NewUser(this);
+            nameForm.ShowDialog();
         }
     }
 }

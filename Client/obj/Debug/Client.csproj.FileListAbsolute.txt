@@ -31,3 +31,4 @@ D:\Learning\Git\Chat\Client\obj\Debug\Client.csproj.GenerateResource.cache
 D:\Learning\Git\Chat\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
 D:\Learning\Git\Chat\Client\obj\Debug\Client.exe
 D:\Learning\Git\Chat\Client\obj\Debug\Client.pdb
+D:\Learning\Git\Chat\Client\obj\Debug\Client.ConnectToServer.resources

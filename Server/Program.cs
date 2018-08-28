@@ -70,7 +70,8 @@ namespace Server
                     clientSocket.Receive(buffer);
                 }
 
-                //clientSocket.Receive(buffer);
+                //Передаем новому пользователю спикок подключенных к чату пользователей
+                userState(clientSocket);
                 
 
                 //Поток для постоянной прослушки со стороны каждого клиента на придмет принятия сообщения с его стороны
@@ -158,6 +159,22 @@ namespace Server
                 
             }         
 
+        }
+
+        //Метод посылающий клиентам информация о подключенных к серверу пользователей
+        static void userState(Socket _userSocket)
+        {
+            Socket userSocket = _userSocket;
+            byte[] buffer = new byte[1024];
+
+            foreach(string nameCls in clientHS.Keys)
+            {
+                broadcast(nameCls);
+                userSocket.Receive(buffer);
+            }
+
+            broadcast("Last");
+            userSocket.Receive(buffer);
         }
         
     }
