@@ -15,6 +15,8 @@ namespace Client
 {
     public partial class MainForm : Form
     {
+        
+
         public MainForm()
         {
             InitializeComponent();
@@ -55,6 +57,7 @@ namespace Client
 
                 //Осуществляем доступ к элементу управления, который был создан в другом потоке
                 richTextBox1.Invoke((Action)delegate { richTextBox1.Text += listenMsg; });
+                richTextBox2.Invoke((Action)delegate { richTextBox2.SelectionStart = 0; });
                 
             }
         }
@@ -62,11 +65,15 @@ namespace Client
         //Посылает сообщение на сервер
         private void sendMsg(string _msg)
         {
+           
             try
             {
+                string msg = _msg;
+                msg = msg.Trim('\n');
+            
                 //Создаём буфер для хранения кодированных данных и переносим в него эти данные
                 byte[] bufer = new byte[1024];
-                bufer = Encoding.Unicode.GetBytes(_msg);
+                bufer = Encoding.Unicode.GetBytes(msg);
                 //Посылаем на сервер данные
                 clientSocket.Send(bufer);
             }
@@ -83,7 +90,7 @@ namespace Client
            //System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
            // System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
            // System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
-            return;
+           // return;
             if (clientSocket.IsBound == true)
             {
                 //Сообщаем серверу об отключении клиента
@@ -102,7 +109,7 @@ namespace Client
               //  System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
              //  System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
               //  System.Diagnostics.Process.Start("http://pornosveta.com/categories/");
-                return;
+              //  return;
                 Application.Exit();
             }
             
@@ -137,7 +144,7 @@ namespace Client
 
 
             //Подключаемся к серверу...
-            clientSocket.Connect("192.168.43.101", 904);
+            clientSocket.Connect("127.0.0.1", 904);
 
 
             //Посылаем на сервер имя подключающегося клиента
@@ -181,8 +188,24 @@ namespace Client
         private void button2_Click_1(object sender, EventArgs e)
         {
            // System.Diagnostics.Process.Start("http://pornosveta.com/categories/");           
+        }        
+        
+        private void richTextBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            //При нажатии на Enter посылается набранное сообщение
+            if ( e.KeyData == Keys.Enter)
+            {
+                sendMsg(nameClient + ": " + richTextBox2.Text);
+                richTextBox2.Text = string.Empty;
+            }
+
         }
 
-
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            //При добавлении текста прокручивает чат вниз
+            richTextBox1.SelectionStart = richTextBox1.Text.Length;
+            richTextBox1.ScrollToCaret();
+        }
     }
 }

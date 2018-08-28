@@ -34,7 +34,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -68,7 +67,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(31, 215);
+            this.button1.Location = new System.Drawing.Point(31, 204);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(138, 54);
             this.button1.TabIndex = 2;
@@ -80,30 +79,27 @@
             // 
             this.richTextBox1.Location = new System.Drawing.Point(299, 40);
             this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
             this.richTextBox1.Size = new System.Drawing.Size(794, 334);
             this.richTextBox1.TabIndex = 3;
             this.richTextBox1.Text = "";
+            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // richTextBox2
             // 
             this.richTextBox2.Location = new System.Drawing.Point(299, 380);
             this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(794, 69);
+            this.richTextBox2.Size = new System.Drawing.Size(794, 26);
             this.richTextBox2.TabIndex = 4;
             this.richTextBox2.Text = "";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(31, 92);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(145, 39);
-            this.textBox1.TabIndex = 5;
+       
+            this.richTextBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.richTextBox2_KeyDown);
+         
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(42, 306);
+            this.button2.Enabled = false;
+            this.button2.Location = new System.Drawing.Point(35, 313);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(134, 46);
             this.button2.TabIndex = 6;
@@ -115,9 +111,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1144, 483);
+            this.ClientSize = new System.Drawing.Size(1144, 422);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.richTextBox2);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.button1);
@@ -140,7 +135,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.RichTextBox richTextBox2;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ToolStripMenuItem сервер1ToolStripMenuItem;
         private System.Windows.Forms.Button button2;
     }
