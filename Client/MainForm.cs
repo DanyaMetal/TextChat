@@ -150,7 +150,7 @@ namespace Client
         private void подключитьсяToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Подключаемся к серверу...
-            clientSocket.Connect("127.0.0.1", 904);
+            clientSocket.Connect("192.168.1.5", 904);
 
 
             //Посылаем на сервер имя подключающегося клиента
