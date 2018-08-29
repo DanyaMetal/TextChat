@@ -61,14 +61,15 @@ namespace Server
                 //Добавляем клиента и его сокет подключение в хэш таблицу
                 clientHS.Add(msg, clientSocket);
 
-                msg += " подключился к чату";
+                msg += " подключился к чату\n";
                 Console.WriteLine(msg);
 
                 foreach(string history in historyMsg)
-                {
+                {                   
                     clientSocket.Send(Encoding.Unicode.GetBytes(history));
                     clientSocket.Receive(buffer);
                 }
+                historyMsg.Remove("Last");
 
                 //Передаем новому пользователю спикок подключенных к чату пользователей
                 userState(clientSocket);
@@ -77,7 +78,10 @@ namespace Server
                 //Поток для постоянной прослушки со стороны каждого клиента на придмет принятия сообщения с его стороны
                 Thread UserChat = new Thread(new ParameterizedThreadStart(doChat));
                 UserChat.Start(clientSocket);
-               
+
+                historyMsg.Add(msg);
+                historyMsg.Add("Last");
+
                 //Сообщаем всем клиентам о новом подключившемся пользователе
                 broadcast(msg);
                 
@@ -95,10 +99,7 @@ namespace Server
             string otherMsg = _msg;
             otherMsg += "\n";
             buffer = Encoding.Unicode.GetBytes(otherMsg);
-            //Добавляем в историю сообщение рассылаемое клиентам            
-            historyMsg.RemoveAt(historyMsg.Count - 1);
-            historyMsg.Add(otherMsg);
-            historyMsg.Add("Last");
+           
 
 
             foreach (string key in clientHS.Keys)
@@ -147,8 +148,14 @@ namespace Server
                         //При отсутствия подходящего имени просто выполняем рассылку сообщения            
                         
                         Console.WriteLine(userMsg);
+
+                        //Добавляем в историю сообщение рассылаемое клиентам            
+                        historyMsg.RemoveAt(historyMsg.Count - 1);
+                        historyMsg.Add(userMsg + "\n");
+                        historyMsg.Add("Last");
+
                         broadcast(userMsg);
-                        
+                         
 
                 }
 
